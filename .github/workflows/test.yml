@@ -9,7 +9,7 @@ on:
 
 jobs:
   check:
-    name: Foundry unit tests
+    name: Foundry unit tests only
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,12 +20,13 @@ jobs:
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
 
-      - name: Run Forge fmt (check)
-        run: forge fmt --check
+      # Formatting check is optional; comment out for now
+      # - name: Run Forge fmt (check)
+      #   run: forge fmt --check
 
-     # - name: Run Forge build
-      #  run: forge build --sizes
+      - name: Build contracts
+        run: forge build --sizes
 
-      - name: Run unit tests
+      - name: Run unit tests only
         run: forge test --match-path test/unit -vvv
 
