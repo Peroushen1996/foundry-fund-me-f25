@@ -38,7 +38,7 @@ contract InteractionsTest is Test {
     }
 }
 
- /* contract InteractionsTest is Test {
+/* contract InteractionsTest is Test {
     FundMe fundMe;
 
     address USER = makeAddr("user");
@@ -48,7 +48,7 @@ contract InteractionsTest is Test {
 
     function setUp() external {
         DeployFundMe deploy = new DeployFundMe();
-        fundMe = deploy.run();  
+        fundMe = deploy.run();
        vm.deal(USER, STARTING_BALANCE);
     }
 
@@ -68,6 +68,4 @@ contract InteractionsTest is Test {
    }
 }
 */
-  
-
 

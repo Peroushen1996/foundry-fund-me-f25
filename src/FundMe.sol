@@ -39,33 +39,32 @@ contract FundMe {
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
     }
-    function cheaperWithdraw() public onlyOwner {
-    uint256 fundersLength = s_funders.length;
 
-    for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
-        address funder = s_funders[funderIndex];
-        s_addressToAmountFunded[funder] = 0;
+    function cheaperWithdraw() public onlyOwner {
+        uint256 fundersLength = s_funders.length;
+
+        for (uint256 funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
+            address funder = s_funders[funderIndex];
+            s_addressToAmountFunded[funder] = 0;
+        }
+
+        // s_funders = new address[] ; //
+
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
     }
 
-   // s_funders = new address[] ; //
-
-    (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
-    require(callSuccess, "Call failed");
-}
-
-  
     function withdraw() public onlyOwner {
         for (uint256 funderIndex = 0; funderIndex < s_funders.length; funderIndex++) {
             address funder = s_funders[funderIndex];
-          s_addressToAmountFunded[funder] = 0;
+            s_addressToAmountFunded[funder] = 0;
         }
-       // s_funders = new address[] ; //
+        // s_funders = new address[] ; //
 
-        (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
-    require(callSuccess, "Call failed");
-        
-    
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
     }
+
     fallback() external payable {
         fund();
     }
@@ -73,10 +72,9 @@ contract FundMe {
     receive() external payable {
         fund();
     }
+
     //view/pure functions (Getters)
-    function getAddressToAmountFunded (
-        address fundingAddress
-    ) external view returns (uint256) {
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
 
@@ -84,7 +82,7 @@ contract FundMe {
         return s_funders[index];
     }
 
-    function getOwner() external view returns(address){
+    function getOwner() external view returns (address) {
         return i_owner;
     }
 }
