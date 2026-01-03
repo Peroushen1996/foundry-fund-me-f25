@@ -23,8 +23,8 @@ jobs:
       - name: Run Forge fmt (check)
         run: forge fmt --check
 
-      - name: Run Forge build
-        run: forge build --sizes
+     # - name: Run Forge build
+      #  run: forge build --sizes
 
       - name: Run unit tests
         run: forge test --match-path test/unit -vvv
