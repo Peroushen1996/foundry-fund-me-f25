@@ -18,3 +18,4 @@ lib/
 
 .DS_Store
 zkout/
+lib/chainlink-brownie-contracts
